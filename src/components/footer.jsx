@@ -1,16 +1,14 @@
-import React from 'react';
+import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-bg-200 text-text-100 py-8">
+    <footer className="bg-primary-300 text-white  py-8">
       <div className="container mx-auto">
         <div className="flex flex-wrap justify-between">
           {/* About Company Section */}
           <div className="w-full md:w-1/2 lg:w-1/4 mb-4 lg:mb-0">
             <h4 className="text-lg font-bold mb-2">About Company</h4>
-            <p className="text-sm">
-              Lorem ipsum dolor sit amet.
-            </p>
+            <p className="text-sm">Lorem ipsum dolor sit amet.</p>
           </div>
 
           {/* For Candidates Section */}

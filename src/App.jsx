@@ -1,21 +1,15 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Header from "./components/Header";
-import NotFoundPage from "./page/NotFound";
-import HeroSection from "./components/hero";
-import Footer from "./components/Footer";
-
+import { Route, Routes } from "react-router-dom";
+import MainLayout from "./layouts/MainLayout";
+import HomePage from "./modules/Home/page/Home";
 function App() {
   return (
     <>
-      <ToastContainer />
-      <Header />
-      <HeroSection/>
-      <Footer/>
-
-      <Routes>{/* <Route element={<NotFoundPage />} path="*" /> */}</Routes>
+      <Routes>
+        <Route element={<MainLayout />} path="/">
+          <Route element={<HomePage />} path="" />
+        </Route>
+      </Routes>
     </>
   );
 }
