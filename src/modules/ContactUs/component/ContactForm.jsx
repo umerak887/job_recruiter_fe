@@ -144,7 +144,7 @@ const ContactForm = () => {
           <button
             type="button"
             onClick={formik.handleSubmit}
-            className="bg-primary-300 rounded-md text-white p-2"
+            className="bg-gray-900 rounded-md text-white p-2"
           >
             Send Message
           </button>

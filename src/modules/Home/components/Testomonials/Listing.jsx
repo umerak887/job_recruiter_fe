@@ -26,7 +26,6 @@ const Listing = () => {
         <div className="flex justify-center items-center">
           <ReviewCard />
         </div>
-        {/* Add more ReviewCard components for additional slides */}
       </Slider>
     </div>
   );
