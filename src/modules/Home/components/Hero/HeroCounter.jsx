@@ -17,12 +17,12 @@ const HeroCounter = () => {
     {
       icon: <FaFileAlt />,
       count: 21,
-      title: "Cadidates",
+      title: "Candidates",
     },
   ];
 
   return (
-    <div className="flex justify-center items-center gap-10">
+    <div className="flex flex-col md:flex-row justify-center items-center md:items-stretch gap-10">
       {counterArray.map((ele, index) => (
         <CounterCard
           key={index}
