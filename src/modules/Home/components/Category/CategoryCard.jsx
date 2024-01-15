@@ -4,7 +4,7 @@ import { SiGoogleearthengine } from "react-icons/si";
 const CategoryCard = ({ icon, title, count }) => {
   return (
     <div className="cursor-pointer bg-white p-5 rounded-md text-xl flex flex-col w-52 justify-center items-center shadow-xl hover:shadow-2xl">
-      <p className="text-7xl bg-primary-100 p-2 rounded-md text-primary-300">
+      <p className="text-7xl bg-primary-900 p-2 rounded-md text-primary-100">
         {icon}
       </p>
 

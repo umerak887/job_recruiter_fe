@@ -1,94 +1,95 @@
 import React from "react";
-import JobsCard from "../../../../components/JobsCard";
-import img from "../../../../assets/company_logo.webp";
+import JobsCardComponent from "../../../../components/JobsCard"; // Adjust the path accordingly
+import data from "../../../../db/db.json";
+import image from "../../../../assets/company_avatar.webp";
 
 const RecentJobsListing = () => {
-  const jobsArray = [
+  const jobs = [
     {
-      type: "Part Time",
       bookmark: true,
-      image: img,
-      title: "Web Developer",
-      location: "Lahore, Punjab, Pakistan",
-      max_salary: "17k",
+      type: "Contract base",
+      image,
+      title: "Web developer",
+      location: "Lahore",
       min_salary: "15k",
+      max_salary: "17k",
       time: "2 years",
     },
     {
-      type: "Part Time",
-      bookmark: false,
-      image: img, 
-      title: "Web Developer",
-      location: "Lahore, Punjab, Pakistan",
-      max_salary: "17k",
-      min_salary: "15k",
-      time: "2 years",
-    },
-    {
-      type: "Part Time",
-      bookmark: false,
-      image: img,
-      title: "Web Developer",
-      location: "Lahore, Punjab, Pakistan",
-      max_salary: "17k",
-      min_salary: "15k",
-      time: "2 years",
-    },
-    {
-      type: "Part Time",
-      bookmark: false,
-      image: img,
-      title: "Web Developer",
-      location: "Lahore, Punjab, Pakistan",
-      max_salary: "17k",
-      min_salary: "15k",
-      time: "2 years",
-    },
-    {
-      type: "Part Time",
-      bookmark: false,
-      image: img,
-      title: "Web Developer",
-      location: "Lahore, Punjab, Pakistan",
-      max_salary: "17k",
-      min_salary: "15k",
-      time: "2 years",
-    },
-    {
-      type: "Part Time",
       bookmark: true,
-      image: img,
-      title: "Web Developer",
-      location: "Lahore, Punjab, Pakistan",
-      max_salary: "17k",
+      type: "Contract base",
+      image,
+      title: "Web developer",
+      location: "Lahore",
       min_salary: "15k",
+      max_salary: "17k",
       time: "2 years",
     },
     {
-      type: "Part Time",
       bookmark: true,
-      image: img,
-      title: "Web Developer",
-      location: "Lahore, Punjab, Pakistan",
-      max_salary: "17k",
+      type: "Contract base",
+      image,
+      title: "Web developer",
+      location: "Lahore",
       min_salary: "15k",
+      max_salary: "17k",
       time: "2 years",
     },
     {
-      type: "Part Time",
       bookmark: true,
-      image: img,
-      title: "Web Developer",
-      location: "Lahore, Punjab, Pakistan",
-      max_salary: "17k",
+      type: "Contract base",
+      image,
+      title: "Web developer",
+      location: "Lahore",
       min_salary: "15k",
+      max_salary: "17k",
+      time: "2 years",
+    },
+    {
+      bookmark: true,
+      type: "Contract base",
+      image,
+      title: "Web developer",
+      location: "Lahore",
+      min_salary: "15k",
+      max_salary: "17k",
+      time: "2 years",
+    },
+    {
+      bookmark: true,
+      type: "Contract base",
+      image,
+      title: "Web developer",
+      location: "Lahore",
+      min_salary: "15k",
+      max_salary: "17k",
+      time: "2 years",
+    },
+    {
+      bookmark: true,
+      type: "Contract base",
+      image,
+      title: "Web developer",
+      location: "Lahore",
+      min_salary: "15k",
+      max_salary: "17k",
+      time: "2 years",
+    },
+    {
+      bookmark: true,
+      type: "Contract base",
+      image,
+      title: "Web developer",
+      location: "Lahore",
+      min_salary: "15k",
+      max_salary: "17k",
       time: "2 years",
     },
   ];
   return (
-    <div className="flex justify-center items-center flex-wrap gap-5">
-      {jobsArray.map((ele, index) => (
-        <JobsCard
+    <div className="flex flex-wrap justify-center items-center gap-5">
+      {jobs.map((ele, index) => (
+        <JobsCardComponent
           key={index}
           bookmark={ele.bookmark}
           type={ele.type}
@@ -100,7 +101,6 @@ const RecentJobsListing = () => {
           time={ele.time}
         />
       ))}
-      {/* <JobsCard /> */}
     </div>
   );
 };
