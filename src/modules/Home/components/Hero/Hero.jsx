@@ -6,7 +6,7 @@ import HeroCounter from "./HeroCounter";
 const Hero = () => {
   return (
     <div
-      className="relative w-full h-[700px] min-h-96"
+      className="relative py-20 w-full min-h-[400px] md:min-h-[700px] overflow-hidden"
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: "cover",
@@ -14,17 +14,17 @@ const Hero = () => {
       }}
     >
       <div className="absolute inset-0 bg-blue-400 opacity-50"></div>
-      <div className="w-full h-[700px] flex flex-col justify-center items-center relative">
-        <h1 className="text-6xl font-bold text-white z-10 ">
+      <div className="w-full h-full flex flex-col justify-center items-center relative text-center text-white">
+        <h1 className="text-4xl md:text-6xl font-bold mb-2">
           Find Your Dream Job
         </h1>
-        <p className="text-center  font-semibold mx-auto text-2xl rounded-md z-10">
+        <p className="text-center font-semibold text-lg md:text-2xl mx-auto rounded-md mb-4">
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias
         </p>
-        <div className="bg-white z-10 p-5 py-3 mt-10 rounded-md">
+        <div className="bg-white p-5 py-3 mt-5 md:mt-10 rounded-md">
           <HeroForm />
         </div>
-        <div className="z-10 p-5 py-3 mt-10 rounded-md">
+        <div className="mt-5 md:mt-10">
           <HeroCounter />
         </div>
       </div>
