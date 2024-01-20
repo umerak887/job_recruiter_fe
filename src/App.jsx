@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+// import React from "react";
 import Register from "./modules/Auth/page/Register";
 import { Route, Routes } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
@@ -15,6 +16,28 @@ import CandidateHome from "./modules/CandidateDashboard/Home/page/CandidateHome"
 import IntroductionPage from "./modules/Introduction/page";
 import AddResume from "./modules/CandidateDashboard/AddResume/page/AddResume";
 const App = () => {
+  useEffect(() => {
+    // Talk.to widget code
+    const talkToScript = document.createElement("script");
+    talkToScript.type = "text/javascript";
+    talkToScript.innerHTML = `
+      var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+      (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/65abb4010ff6374032c2c5fc/1hkjbeb8i';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+      })();
+    `;
+    document.body.appendChild(talkToScript);
+
+    return () => {
+      // Cleanup script when the component unmounts
+      document.body.removeChild(talkToScript);
+    };
+  }, []);
   return (
     <>
       <Routes>
