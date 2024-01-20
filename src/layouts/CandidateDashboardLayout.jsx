@@ -6,13 +6,13 @@ import CollapsibleSidebar from "../components/DashboardSidebar";
 
 const CandidateDashboardLayout = () => {
   return (
-    <div>
+    <div className="">
       <Header />
       <div className=" flex">
         <div className="h-screen">
           <CollapsibleSidebar />
         </div>
-        <div className="">
+        <div className="w-full">
           <Outlet />
         </div>
       </div>
