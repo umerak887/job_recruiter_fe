@@ -16,20 +16,20 @@ const Header = () => {
   const navLinksArray = [
     {
       name: "Home",
-      path: "/",
+      path: "/main",
     },
     {
       name: "Find Job",
-      path: "/find_job",
+      path: "main/find_job",
     },
     {
       name: "Company",
-      path: "/company",
+      path: "main/company",
     },
-    { name: "Candidate", path: "/candidate" },
+    { name: "Candidate", path: "main/candidate" },
     {
       name: "Contact Us",
-      path: "/contact_us",
+      path: "main/contact_us",
     },
   ];
 

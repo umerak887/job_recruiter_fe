@@ -11,6 +11,7 @@ import { BsArrowLeftShort } from "react-icons/bs";
 import { IoMdAdd } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
 import { CiLogout } from "react-icons/ci";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 const CollapsibleSidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
@@ -44,12 +45,10 @@ const CollapsibleSidebar = () => {
       } duration-500 text-2xl`}
     >
       <div
-        className={`${
-          isCollapsed ? "rotate-180" : "rotate-0"
-        } cursor-pointer text-xl text-white`}
+        className={`flex justify-start px-4 py-2 items-center cursor-pointer text-2xl text-white`}
         onClick={() => setIsCollapsed(!isCollapsed)}
       >
-        <BsArrowLeftShort />
+        <RxHamburgerMenu />
       </div>
       <div className="flex-1 overflow-y-auto">
         {sidebarItems.map((item, index) => (
