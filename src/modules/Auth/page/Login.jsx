@@ -15,7 +15,6 @@ const LoginForm = () => {
       password: Yup.string().required("Password is required"),
     }),
     onSubmit: (values) => {
-      // Handle form submission logic (e.g., API call, redirect)
       console.log("Form submitted:", values);
     },
   });
