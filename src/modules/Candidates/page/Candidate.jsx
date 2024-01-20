@@ -5,7 +5,7 @@ import TopBar from "../components/TopBar";
 
 const CandidatePage = () => {
   return (
-    <div className=" min-h-screen m-5">
+    <div className="min-h-screen m-5">
       <div className="flex justify-start items-start gap-2">
         <div className="w-72 ">
           <FilterSearch />
