@@ -14,6 +14,10 @@ import CandidateDashboardLayout from "./layouts/CandidateDashboardLayout";
 import CandidateHome from "./modules/CandidateDashboard/Home/page/CandidateHome";
 import IntroductionPage from "./modules/Introduction/page";
 import AddResume from "./modules/CandidateDashboard/AddResume/page/AddResume";
+import Resumes from "./modules/CandidateDashboard/Resumes/page/Resumes";
+import Applications from "./modules/CandidateDashboard/Applications/page/Applications";
+import Messages from "./modules/CandidateDashboard/Messages/page/Messages";
+import Bookmark from "./modules/CandidateDashboard/BookMarks/page/Bookmark";
 const App = () => {
   return (
     <>
@@ -34,7 +38,11 @@ const App = () => {
           path="candidate_dashboard"
         >
           <Route element={<CandidateHome />} path="" />
+          <Route element={<Messages />} path="messages" />
+          <Route element={<Bookmark />} path="bookmarks" />
           <Route element={<AddResume />} path="add_resume" />
+          <Route element={<Resumes />} path="resumes" />
+          <Route element={<Applications />} path="applications" />
         </Route>
       </Routes>
     </>

@@ -20,16 +20,16 @@ const Header = () => {
     },
     {
       name: "Find Job",
-      path: "main/find_job",
+      path: "/main/find_job",
     },
     {
       name: "Company",
-      path: "main/company",
+      path: "/main/company",
     },
-    { name: "Candidate", path: "main/candidate" },
+    { name: "Candidate", path: "/main/candidate" },
     {
       name: "Contact Us",
-      path: "main/contact_us",
+      path: "/main/contact_us",
     },
   ];
 
@@ -50,9 +50,9 @@ const Header = () => {
           </span>
         </a>
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          SignIn
           <button
             type="button"
+            onClick={() => navigate("/candidate_dashboard")}
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             Get started

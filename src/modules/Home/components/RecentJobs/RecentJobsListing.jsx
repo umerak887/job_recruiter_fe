@@ -1,6 +1,5 @@
 import React from "react";
-import JobsCardComponent from "../../../../components/JobsCard"; // Adjust the path accordingly
-import data from "../../../../db/db.json";
+import JobsCardComponent from "../../../../components/JobsCard";
 import image from "../../../../assets/company_avatar.webp";
 
 const RecentJobsListing = () => {
@@ -26,7 +25,7 @@ const RecentJobsListing = () => {
       time: "2 years",
     },
     {
-      bookmark: true,
+      bookmark: false,
       type: "Contract base",
       image,
       title: "Web developer",
@@ -36,7 +35,7 @@ const RecentJobsListing = () => {
       time: "2 years",
     },
     {
-      bookmark: true,
+      bookmark: false,
       type: "Contract base",
       image,
       title: "Web developer",

@@ -15,7 +15,7 @@ const IntroductionPage = () => {
           <div className="text-9xl text-white font-bold ">Your Career</div>
           <div
             className="h-24 w-96 bg-transparent border-4 rounded-full border-blue-700 text-transparent hover:text-white flex justify-center items-center text-5xl cursor-pointer hover:bg-blue-700"
-            onClick={() => navigate("/auth/sign_up")}
+            onClick={() => navigate("/main")}
           >
             Get Started
           </div>

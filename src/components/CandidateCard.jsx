@@ -27,7 +27,7 @@ const CandidateCard = () => {
           ))}
         </div>
       </div>
-      <button className="bg-primary-800 text-white px-3 py-1 mt-4 rounded-md w-full hover:bg-primary-900">
+      <button className="bg-gray-800 text-white px-3 py-1 mt-4 rounded-md w-full hover:bg-gray-900">
         View Candidates
       </button>
     </div>

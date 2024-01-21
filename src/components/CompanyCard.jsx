@@ -39,7 +39,7 @@ const CompanyCard = ({
           <p>{location}</p>
         </div>
       </div>
-      <button className="bg-primary-800 text-white px-3 py-1 rounded-md w-full hover:bg-primary-900">
+      <button className="bg-gray-800 text-white px-3 py-1 rounded-md w-full hover:bg-gray-900">
         See Details
       </button>
     </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   MdDashboard,
   MdMailOutline,
@@ -16,6 +16,8 @@ import { RxHamburgerMenu } from "react-icons/rx";
 const CollapsibleSidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const handleResize = () => {
       setIsCollapsed(window.innerWidth <= 768);
@@ -28,14 +30,34 @@ const CollapsibleSidebar = () => {
   }, []);
 
   const sidebarItems = [
-    { name: "Dashboard", icon: <MdDashboard /> },
-    { name: "Messages", icon: <MdMailOutline /> },
-    { name: "Bookmarks", icon: <MdBookmark /> },
-    { name: "Job Alerts", icon: <MdNotificationsNone /> },
-    { name: "Applications", icon: <IoNewspaper /> },
-    { name: "Add Resume", icon: <IoMdAdd /> },
-    { name: "My Profile", icon: <CgProfile /> },
-    { name: "Logout", icon: <CiLogout /> },
+    { name: "Dashboard", icon: <MdDashboard />, path: "/candidate_dashboard" },
+    {
+      name: "Messages",
+      icon: <MdMailOutline />,
+      path: "/candidate_dashboard/messages",
+    },
+    {
+      name: "Bookmarks",
+      icon: <MdBookmark />,
+      path: "/candidate_dashboard/bookmarks",
+    },
+    { name: "Job Alerts", icon: <MdNotificationsNone />, path: "non_found" },
+    {
+      name: "Applications",
+      icon: <IoNewspaper />,
+      path: "/candidate_dashboard/applications",
+    },
+    {
+      name: "Add Resume",
+      icon: <IoMdAdd />,
+      path: "/candidate_dashboard/add_resume",
+    },
+    {
+      name: "My Profile",
+      icon: <CgProfile />,
+      path: "/candidate_dashboard/resumes",
+    },
+    { name: "Logout", icon: <CiLogout />, path: "/main" },
   ];
 
   return (
@@ -54,6 +76,7 @@ const CollapsibleSidebar = () => {
         {sidebarItems.map((item, index) => (
           <div
             key={index}
+            onClick={() => navigate(item.path)}
             className={`flex items-center gap-4 p-4 transition-all cursor-pointer ${
               isCollapsed ? "justify-center text-4xl" : "justify-start"
             }`}
