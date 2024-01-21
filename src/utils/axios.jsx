@@ -9,3 +9,4 @@ const axiosInstance = axios.create({
 });
 
 export default axiosInstance;
+//API PATH = '/auth/user/register

@@ -1,89 +1,117 @@
+import { FormikProvider, useFormik, Form, Field } from "formik";
 import React from "react";
-import { useFormik } from "formik";
-import * as Yup from "yup";
+import { object, string } from "yup";
+import axiosInstance from "../../../utils/axios";
+import { useNavigate } from "react-router-dom";
 
-const LoginForm = () => {
+const loginSchema = object({
+  email: string().email().required(),
+  password: string().required(),
+  role: string().required(),
+});
+const Login = () => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (values) => {
+    try {
+      const response = await axiosInstance.post("/auth/user/login", values);
+      const token = response.data.token;
+      localStorage.setItem("token", token);
+      axiosInstance.defaults.headers.common["Authorization"] = `${token}`;
+      navigate("/main");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
+      role: "",
     },
-    validationSchema: Yup.object({
-      email: Yup.string()
-        .email("Invalid email address")
-        .required("Email is required"),
-      password: Yup.string().required("Password is required"),
-    }),
-    onSubmit: (values) => {
-      console.log("Form submitted:", values);
-    },
+    validationSchema: loginSchema,
+    onSubmit: handleSubmit,
   });
 
+  const { errors, touched, values } = formik;
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-950 to-gray-900">
-      <div className="max-w-md w-full p-8 space-y-5 bg-white shadow-lg rounded-md animate__animated animate__fadeIn">
-        <h2 className="text-3xl font-extrabold text-center text-gray-800">
-          Login
-        </h2>
-        <form onSubmit={formik.handleSubmit}>
-          <div>
+    <div className="flex items-center justify-center h-screen bg-gray-900 text-white">
+      <FormikProvider value={formik}>
+        <Form className="bg-gray-800 w-96 shadow-md rounded-md p-8">
+          <div className="mb-4">
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-300"
             >
               Email
             </label>
-            <input
+            <Field
               type="email"
               id="email"
               name="email"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.email}
-              className={`mt-1 p-3 w-full border rounded-md ${
-                formik.touched.email && formik.errors.email
-                  ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                  : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-              }`}
+              className="mt-1 p-2 w-full border rounded-md bg-gray-700 text-white focus:outline-none focus:ring focus:border-blue-300"
             />
-            {formik.touched.email && formik.errors.email && (
-              <p className="text-red-500 text-sm">{formik.errors.email}</p>
+            {touched.email && errors.email && (
+              <div className="text-red-500 text-sm mt-1">{errors.email}</div>
             )}
           </div>
-          <div>
+
+          <div className="mb-4">
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-300"
             >
               Password
             </label>
-            <input
+            <Field
               type="password"
               id="password"
               name="password"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.password}
-              className={`mt-1 p-3 w-full border rounded-md ${
-                formik.touched.password && formik.errors.password
-                  ? "border-red-500 focus:ring-red-500 focus:border-red-500"
-                  : "border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-              }`}
+              className="mt-1 p-2 w-full border rounded-md bg-gray-700 text-white focus:outline-none focus:ring focus:border-blue-300"
             />
-            {formik.touched.password && formik.errors.password && (
-              <p className="text-red-500 text-sm">{formik.errors.password}</p>
+            {touched.password && errors.password && (
+              <div className="text-red-500 text-sm mt-1">{errors.password}</div>
             )}
           </div>
-          <button
-            type="submit"
-            className="mt-4 w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-gradient-to-r from-gray-950 to-gray-800 hover:from-gray-800 hover:to-gray-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-          >
-            Login
-          </button>
-        </form>
-      </div>
+
+          <div className="mb-4">
+            <label
+              htmlFor="role"
+              className="block text-sm font-medium text-gray-300"
+            >
+              Role
+            </label>
+            <Field
+              as="select"
+              id="role"
+              name="role"
+              className="mt-1 p-2 w-full border rounded-md bg-gray-700 text-white focus:outline-none focus:ring focus:border-blue-300"
+            >
+              <option value="" disabled>
+                Select Role
+              </option>
+              <option value="employer">Employer</option>
+              <option value="candidate">Candidate</option>
+            </Field>
+            {touched.role && errors.role && (
+              <div className="text-red-500 text-sm mt-1">{errors.role}</div>
+            )}
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              className="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300"
+            >
+              Register
+            </button>
+          </div>
+        </Form>
+      </FormikProvider>
     </div>
   );
 };
 
-export default LoginForm;
+export default Login;

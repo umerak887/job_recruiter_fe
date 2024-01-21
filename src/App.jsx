@@ -22,9 +22,9 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route element={<IntroductionPage />} path="" />
         <Route element={<Register />} path="auth/sign_up" />
         <Route element={<Login />} path="auth/sign_in" />
+        <Route element={<IntroductionPage />} path="" />
         <Route element={<NotFoundPage />} path="*" />
         <Route element={<MainLayout />} path="/main">
           <Route element={<HomePage />} path="" />
@@ -33,6 +33,9 @@ const App = () => {
           <Route element={<CandidatePage />} path="candidate" />
           <Route element={<ContactUs />} path="contact_us" />
         </Route>
+
+        {/* Candidate Dashboard */}
+
         <Route
           element={<CandidateDashboardLayout />}
           path="candidate_dashboard"
