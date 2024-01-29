@@ -33,7 +33,7 @@ const SideBar = ({ children }) => {
         </ul>
         <div className="border-t flex p-3">
           <h1 className="w-10 h-10 rounded-md bg-indigo-200 text-indigo-800 flex justify-center items-center text-xl font-bol">
-            {userData.name[0]}
+            {/* {userData.name[0]} */}
           </h1>
           <div
             className={`flex justify-between items-center overflow-hidden transition-all ${
