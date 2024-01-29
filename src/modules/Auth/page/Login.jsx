@@ -3,6 +3,8 @@ import React from "react";
 import { object, string } from "yup";
 import axiosInstance from "../../../utils/axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { login, storeUserData } from "../store.js";
 
 const loginSchema = object({
   email: string().email().required(),
@@ -10,14 +12,16 @@ const loginSchema = object({
   role: string().required(),
 });
 const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = async (values) => {
     try {
       const response = await axiosInstance.post("/auth/user/login", values);
       const token = response.data.token;
-      localStorage.setItem("token", token);
-      axiosInstance.defaults.headers.common["Authorization"] = `${token}`;
+      const data = response.data.data;
+      dispatch(storeUserData({ data }));
+      dispatch(login({ token }));
       navigate("/main");
     } catch (error) {
       console.log(error);

@@ -19,15 +19,14 @@ const CandidateHome = () => {
   ];
 
   return (
-    <div className="">
-      <div className="grid grid-cols-4 gap-10">
-        {/* {stats.map((ele, index) => (
-          <StatsCard key={index} className="col-span-1" />
-        ))} */}
+    <section className="overflow-hidden">
+      <div className="m-10 gap-10 flex justify-center items-center flex-wrap ">
+        <StatsCard />
+        <StatsCard />
+        <StatsCard />
+        <StatsCard />
       </div>
-
-      {/* <Notifications /> */}
-    </div>
+    </section>
   );
 };
 
