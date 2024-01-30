@@ -3,30 +3,26 @@ import React, { useState } from "react";
 import { object, string } from "yup";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 
-const urlSchema = object({
-  urlname: string().required(),
-  urllink: string()
-    .matches(
-      /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
-      "Enter correct url!"
-    )
-    .required(),
+const skillsSchema = object({
+  name: string().required(),
 });
-const UrlsForm = ({ addURL }) => {
+const SkillsForm = ({ addSkill }) => {
   const [isOpen, setIsOpen] = useState(true);
+
   const formik = useFormik({
     initialValues: {
-      urlname: "",
-      urllink: "",
+      name: "",
     },
-    validationSchema: urlSchema,
-    onSubmit: (values) => {
-      addURL(values);
+    validationSchema: skillsSchema,
+    onSubmit: (values, { resetForm }) => {
       console.log(values);
+      addSkill(values);
+      resetForm();
     },
   });
+
   return (
-    <div className="bg-white shadow-md pb-4 mb-4 mt-1">
+    <div className="bg-white shadow-md pb-4 mt-1 mb-4">
       <div className="bg-gray-900 text-white font-medium p-4 flex justify-between items-center">
         <h1>Add URL</h1>
         <div onClick={() => setIsOpen(!isOpen)}>
@@ -38,20 +34,10 @@ const UrlsForm = ({ addURL }) => {
           <form onSubmit={formik.handleSubmit} className="p-4">
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-600">
-                URL Name
+                Skill
               </label>
               <Field
-                name="urlname"
-                className="mt-1 p-2 w-full border rounded-md"
-              />
-            </div>
-
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-600">
-                URL Link
-              </label>
-              <Field
-                name="urllink"
+                name="name"
                 className="mt-1 p-2 w-full border rounded-md"
               />
             </div>
@@ -60,7 +46,7 @@ const UrlsForm = ({ addURL }) => {
                 type="submit"
                 className="bg-gray-900 p-2 rounded-md text-white font-semibold"
               >
-                Add URL
+                Add Skill
               </button>
             </div>
           </form>
@@ -70,4 +56,4 @@ const UrlsForm = ({ addURL }) => {
   );
 };
 
-export default UrlsForm;
+export default SkillsForm;

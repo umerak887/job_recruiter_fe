@@ -12,7 +12,7 @@ const educationSchema = object({
   description: string().required(),
 });
 
-const EducationForm = ({ addEducation, onClose }) => {
+const EducationForm = ({ addEducation }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   const formik = useFormik({

@@ -20,11 +20,13 @@ const CandidateHome = () => {
 
   return (
     <section className="overflow-hidden">
-      <div className="m-10 gap-10 flex justify-center items-center flex-wrap ">
-        <StatsCard />
-        <StatsCard />
-        <StatsCard />
-        <StatsCard />
+      <div className="m-10 gap-10 flex justify-evenly items-center flex-wrap ">
+        {stats.map((ele, index) => (
+          <StatsCard key={index} name={ele.name} count={ele.count} />
+        ))}
+      </div>
+      <div className="m-10  ">
+        <Notifications />
       </div>
     </section>
   );

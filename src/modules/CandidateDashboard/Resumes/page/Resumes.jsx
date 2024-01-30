@@ -7,19 +7,21 @@ import Education from "../components/Education/Education";
 import EducationListing from "../components/Education/EducationListing";
 import UrlListing from "../components/URLS/UrlListing";
 import ExperienceListing from "../components/Experience/ExperienceListing";
+import SkillsListing from "../components/Skills/SkillsListing";
+import SkillsForm from "../components/Skills/SkillsForm";
+import axiosInstance from "../../../../utils/axios";
 
-// const urlSchema = Joi.object({
-//   urlname: Joi.string().required(),
-//   urllink: Joi.string().required(),
-// });
+//path : /resume
 
 const Resumes = () => {
   const [educationArray, setEducationArray] = useState([]);
   const [experienceArray, setExperienceArray] = useState([]);
   const [URLArray, setURLArray] = useState([]);
+  const [skillsArray, setSkillsArray] = useState([]);
   const [candidateData, setCandidateData] = useState();
   const [isCandidateFormSumitted, setIsCandidateFormSubmitted] =
     useState(false);
+  const [payload, setPayload] = useState(null);
 
   useEffect(() => {
     setIsCandidateFormSubmitted(!!candidateData);
@@ -32,11 +34,48 @@ const Resumes = () => {
   const addEducation = (education) => {
     setEducationArray([...educationArray, education]);
   };
+  const deleteEducation = (index) => {
+    const updatedEducationArray = [...educationArray];
+    updatedEducationArray.splice(index, 1);
+    setEducationArray(updatedEducationArray);
+  };
   const addURL = (url) => {
     setURLArray([...URLArray, url]);
   };
   const addExperience = (experience) => {
     setExperienceArray([...experienceArray, experience]);
+  };
+  const addSkill = (skill) => {
+    const exists = skillsArray.some(
+      (ele) => JSON.stringify(ele) === JSON.stringify(skill)
+    );
+    if (exists) {
+      console.log("object already entered");
+    } else {
+      setSkillsArray([...skillsArray, skill]);
+    }
+  };
+
+  const saveChanges = async () => {
+    try {
+      const payload = {
+        ...candidateData,
+        skill: skillsArray.map((skill) => ({
+          ...skill,
+        })),
+        url: URLArray.map((url) => ({
+          ...url,
+        })),
+        education: educationArray.map((edu) => ({
+          ...edu,
+        })),
+        experience: experienceArray.map((exp) => ({
+          ...exp,
+        })),
+      };
+      const response = await axiosInstance.post("/resume", payload);
+      console.log(response);
+    } catch (error) {}
   };
 
   return (
@@ -47,8 +86,11 @@ const Resumes = () => {
           <div className="col-span-3">
             <EducationForm addEducation={addEducation} />
           </div>
-          <div className="col-span-1 max-h-[630px] overflow-y-auto bg-white">
-            <EducationListing educationArray={educationArray} />
+          <div className="col-span-1 ">
+            <EducationListing
+              educationArray={educationArray}
+              deleteEducation={deleteEducation}
+            />
           </div>
         </div>
 
@@ -68,9 +110,20 @@ const Resumes = () => {
             <UrlListing URLArray={URLArray} />
           </div>
         </div>
+        <div className="md:grid md:grid-cols-4 md:gap-x-2">
+          <div className="col-span-3">
+            <SkillsForm addSkill={addSkill} />
+          </div>
+          <div className="col-span-1">
+            <SkillsListing skillsArray={skillsArray} />
+          </div>
+        </div>
 
         <div className="flex justify-end items-center mt-2">
-          <button className="bg-gray-900 p-3 text-white rounded-md">
+          <button
+            className="bg-gray-900 p-3 text-white rounded-md"
+            onClick={saveChanges}
+          >
             Save Changes
           </button>
         </div>

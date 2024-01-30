@@ -17,8 +17,9 @@ import Resumes from "./modules/CandidateDashboard/Resumes/page/Resumes";
 import Applications from "./modules/CandidateDashboard/Applications/page/Applications";
 import Messages from "./modules/CandidateDashboard/Messages/page/Messages";
 import Bookmark from "./modules/CandidateDashboard/BookMarks/page/Bookmark";
-// import Sidebar from "./components/SideBar/SideBar";
-// import DummyLayout from "./layouts/DummyLayout";
+import EmployerDashboardLayout from "./layouts/EmployerDashboardLayout";
+import CandidateDetail from "./modules/CandidateDetails/page/CandidateDetail";
+
 const App = () => {
   return (
     <>
@@ -33,6 +34,10 @@ const App = () => {
           <Route element={<FindJob />} path="find_job" />
           <Route element={<CompanyPage />} path="company" />
           <Route element={<CandidatePage />} path="candidate" />
+          <Route
+            element={<CandidateDetail />}
+            path="candidate/candidate_details"
+          />
           <Route element={<ContactUs />} path="contact_us" />
         </Route>
         {/* Candidate Dashboard */}
@@ -46,7 +51,11 @@ const App = () => {
           <Route element={<Resumes />} path="resumes" />
           <Route element={<Applications />} path="applications" />
         </Route>
-        {/* <Route element={<DummyLayout />} path="/sidebar" /> */}
+        {/* Employer Dashboard */}
+        <Route
+          element={<EmployerDashboardLayout />}
+          path="employer_dashboard"
+        ></Route>
       </Routes>
     </>
   );

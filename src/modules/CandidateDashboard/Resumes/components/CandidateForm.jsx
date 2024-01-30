@@ -16,6 +16,8 @@ const candidateSchema = object({
 
 const CandidateForm = ({ addCandidate }) => {
   const [isOpen, setIsOpen] = useState(true);
+  const [cvUrl, setCvUrl] = useState("");
+  const [imageUrl, setImageURL] = useState("");
 
   const formik = useFormik({
     initialValues: {
@@ -29,10 +31,43 @@ const CandidateForm = ({ addCandidate }) => {
       description: "",
     },
     onSubmit: (values) => {
-      addCandidate(values);
+      addCandidate({ ...values, image: imageUrl, cv: cvUrl });
     },
     validationSchema: candidateSchema,
   });
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "job_recruiter");
+    const response = await fetch(
+      "https://api.cloudinary.com/v1_1/dseyjydkj/image/upload",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+    const data = await response.json();
+    setImageURL(data.secure_url);
+  };
+
+  const handleCvUpload = async (e) => {
+    const formData = new FormData();
+    formData.append("file", e.target.files[0]);
+    formData.append("upload_preset", "job_recruiter");
+
+    const response = await fetch(
+      "https://api.cloudinary.com/v1_1/dseyjydkj/raw/upload",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+    const data = await response.json();
+    setCvUrl(data.secure_url);
+    console.log(cvUrl);
+  };
 
   const { handleSubmit } = formik;
 
@@ -131,6 +166,36 @@ const CandidateForm = ({ addCandidate }) => {
                 className="mt-1 p-2 w-full border rounded-md"
               />
             </div>
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <div>
+                <label
+                  htmlFor="description"
+                  className="block text-sm font-medium text-gray-600"
+                >
+                  Upload Image
+                </label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="mt-1 p-2 w-full border rounded-md"
+                  onChange={handleImageUpload}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="description"
+                  className="block text-sm font-medium text-gray-600"
+                >
+                  Upload CV
+                </label>
+                <input
+                  type="file"
+                  className="mt-1 p-2 w-full border rounded-md"
+                  onChange={handleCvUpload}
+                />
+              </div>
+            </div>
+
             <div className="flex justify-end items-center">
               <button
                 type="submit"
