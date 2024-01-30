@@ -21,7 +21,8 @@ const Login = () => {
       const token = response.data.token;
       const data = response.data.data;
       dispatch(storeUserData({ data }));
-      dispatch(login({ token }));
+      await localStorage.setItem("token", token);
+      dispatch(login());
       navigate("/main");
     } catch (error) {
       console.log(error);

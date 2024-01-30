@@ -4,7 +4,6 @@ import JobsCard from "../../../components/JobsCard";
 import image from "../../../assets/company_avatar.webp";
 import CompanyCard from "../../../components/CompanyCard";
 import CandidateCard from "../../../components/CandidateCard";
-import { useNavigate } from "react-router-dom";
 
 const Listing = () => {
   const company = [

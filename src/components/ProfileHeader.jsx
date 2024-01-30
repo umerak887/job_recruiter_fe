@@ -14,7 +14,10 @@ const Dropdown = ({ dropDownArray, onClose }) => {
 
   const handleClick = (logoutBtn, path) => {
     try {
-      logoutBtn && dispatch(logout());
+      if (logoutBtn) {
+        localStorage.removeItem("token");
+        dispatch(logout());
+      }
       navigate(path);
     } catch (error) {
       console.error("Something went wrong while Signing out");
