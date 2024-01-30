@@ -3,7 +3,6 @@ import CandidateForm from "../components/CandidateForm";
 import EducationForm from "../components/Education/EducationForm";
 import ExperienceForm from "../components/Experience/ExperienceForm";
 import UrlsForm from "../components/URLS/UrlsForm";
-import Education from "../components/Education/Education";
 import EducationListing from "../components/Education/EducationListing";
 import UrlListing from "../components/URLS/UrlListing";
 import ExperienceListing from "../components/Experience/ExperienceListing";
@@ -11,40 +10,36 @@ import SkillsListing from "../components/Skills/SkillsListing";
 import SkillsForm from "../components/Skills/SkillsForm";
 import axiosInstance from "../../../../utils/axios";
 
-//path : /resume
-
 const Resumes = () => {
   const [educationArray, setEducationArray] = useState([]);
   const [experienceArray, setExperienceArray] = useState([]);
   const [URLArray, setURLArray] = useState([]);
   const [skillsArray, setSkillsArray] = useState([]);
   const [candidateData, setCandidateData] = useState();
-  const [isCandidateFormSumitted, setIsCandidateFormSubmitted] =
-    useState(false);
-  const [payload, setPayload] = useState(null);
-
-  useEffect(() => {
-    setIsCandidateFormSubmitted(!!candidateData);
-  }, [candidateData]);
 
   const addCandidate = (candidateData) => {
     setCandidateData(candidateData);
     console.log(candidateData);
   };
+
   const addEducation = (education) => {
     setEducationArray([...educationArray, education]);
   };
+
   const deleteEducation = (index) => {
     const updatedEducationArray = [...educationArray];
     updatedEducationArray.splice(index, 1);
     setEducationArray(updatedEducationArray);
   };
+
   const addURL = (url) => {
     setURLArray([...URLArray, url]);
   };
+
   const addExperience = (experience) => {
     setExperienceArray([...experienceArray, experience]);
   };
+
   const addSkill = (skill) => {
     const exists = skillsArray.some(
       (ele) => JSON.stringify(ele) === JSON.stringify(skill)
@@ -58,6 +53,7 @@ const Resumes = () => {
 
   const saveChanges = async () => {
     try {
+      const token = localStorage.getItem("token");
       const payload = {
         ...candidateData,
         skill: skillsArray.map((skill) => ({
@@ -73,7 +69,9 @@ const Resumes = () => {
           ...exp,
         })),
       };
-      const response = await axiosInstance.post("/resume", payload);
+      const response = await axiosInstance.post("/resume", payload, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       console.log(response);
     } catch (error) {}
   };

@@ -8,5 +8,15 @@ const axiosInstance = axios.create({
   },
 });
 
+// Add a response interceptor
+axiosInstance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    console.error("Request failed:", error);
+    return Promise.reject(error);
+  }
+);
+
 export default axiosInstance;
-//API PATH = '/auth/user/register

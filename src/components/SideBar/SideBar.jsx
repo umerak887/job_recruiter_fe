@@ -2,13 +2,17 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { LuChevronFirst, LuChevronLast, LuMoreVertical } from "react-icons/lu";
 import { useSelector, useDispatch } from "react-redux";
 import { setExpanded } from "./store";
-const sidebarContext = createContext();
+import { CiLogout } from "react-icons/ci";
+import { login, logout, storeUserData } from "../../modules/Auth/store";
+import { useNavigate } from "react-router-dom";
 
+const sidebarContext = createContext();
 const SideBar = ({ children }) => {
   // const [expanded, setExpanded] = useState(true);
   const expanded = useSelector((state) => state.sidebarReducer.expanded);
   const userData = useSelector((state) => state.auth.userData);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <aside className="h-full">
@@ -44,7 +48,14 @@ const SideBar = ({ children }) => {
               <h4 className="font-semibold">{userData.name}</h4>
               <span className="text-xs text-gray-600">{userData.email}</span>
             </div>
-            <LuMoreVertical size={20} />
+            <CiLogout
+              size={50}
+              className="hover:bg-red-600 p-2 hover:text-white rounded-md cursor-pointer"
+              onClick={() => {
+                dispatch(logout());
+                navigate("/auth/sign_in");
+              }}
+            />
           </div>
         </div>
       </nav>

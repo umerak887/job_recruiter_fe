@@ -7,6 +7,7 @@ import SidebarItem from "../components/SideBar/SidebarItem";
 import { Outlet } from "react-router-dom";
 import { IoPeopleOutline, IoNewspaper } from "react-icons/io5";
 import Header from "../components/Header";
+import { IoHomeOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
 const CandidateDashboardLayout = () => {
   const linksArray = [
@@ -16,19 +17,9 @@ const CandidateDashboardLayout = () => {
       path: "/candidate_dashboard",
     },
     {
-      icon: <LuMessagesSquare size={20} />,
-      text: "Messages",
-      path: "/candidate_dashboard/messages",
-    },
-    {
       icon: <LuBookMarked size={20} />,
       text: "Bookmarks",
       path: "/candidate_dashboard/bookmarks",
-    },
-    {
-      icon: <IoIosNotificationsOutline size={20} />,
-      text: "Job Alerts",
-      path: "/candidate_dashboard/job_alert",
     },
     {
       icon: <IoNewspaper size={20} />,
@@ -39,6 +30,16 @@ const CandidateDashboardLayout = () => {
       icon: <IoPeopleOutline size={20} />,
       text: "Resumes",
       path: "/candidate_dashboard/resumes",
+    },
+    {
+      icon: <IoMdAdd size={20} />,
+      text: "Add Resume",
+      path: "/candidate_dashboard/add_resume",
+    },
+    {
+      icon: <IoHomeOutline size={20} />,
+      text: "Home",
+      path: "/main",
     },
   ];
 

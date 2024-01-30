@@ -4,6 +4,7 @@ import JobsCard from "../../../components/JobsCard";
 import image from "../../../assets/company_avatar.webp";
 import CompanyCard from "../../../components/CompanyCard";
 import CandidateCard from "../../../components/CandidateCard";
+import { useNavigate } from "react-router-dom";
 
 const Listing = () => {
   const company = [
@@ -83,7 +84,7 @@ const Listing = () => {
   return (
     <div className="mt-2 flex justify-start items-start flex-wrap gap-5 p-4 ">
       {company.map((ele, index) => (
-        <CandidateCard />
+        <CandidateCard key={index} />
       ))}
     </div>
   );

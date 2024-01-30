@@ -32,6 +32,7 @@ const CandidateForm = ({ addCandidate }) => {
     },
     onSubmit: (values) => {
       addCandidate({ ...values, image: imageUrl, cv: cvUrl });
+      console.log(localStorage.getItem("token"));
     },
     validationSchema: candidateSchema,
   });
