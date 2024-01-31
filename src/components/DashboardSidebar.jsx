@@ -67,17 +67,21 @@ const CollapsibleSidebar = () => {
       } duration-500 text-2xl`}
     >
       <div
-        className={`flex justify-start px-4 py-2 items-center cursor-pointer text-2xl text-white`}
-        onClick={() => setIsCollapsed(!isCollapsed)}
+        className={`flex justify-end px-4 py-2 items-center  text-2xl text-white`}
       >
-        <RxHamburgerMenu />
+        <BsArrowLeftShort
+          onClick={() => setIsCollapsed(!isCollapsed)}
+          className={`${
+            isCollapsed ? " rotate-180" : "rotate-0"
+          } transition-all duration-500 text-white cursor-pointer hover:bg-white hover:text-black rounded-full bg-glass`}
+        />
       </div>
       <div className="flex-1 overflow-y-auto">
         {sidebarItems.map((item, index) => (
           <div
             key={index}
             onClick={() => navigate(item.path)}
-            className={`flex items-center gap-4 p-4 transition-all cursor-pointer ${
+            className={`flex items-center gap-4 m-1 duration-300 p-4 transition-all cursor-pointer hover:bg-glass rounded-md hover:font-semibold ${
               isCollapsed ? "justify-center text-4xl" : "justify-start"
             }`}
           >
