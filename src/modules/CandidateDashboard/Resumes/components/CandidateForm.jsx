@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Field, FormikProvider, useFormik } from "formik";
 import { object, string } from "yup";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
+import { toast } from "react-toastify";
 
 const candidateSchema = object({
   name: string().max(20).required(),
@@ -31,8 +32,13 @@ const CandidateForm = ({ addCandidate }) => {
       description: "",
     },
     onSubmit: (values) => {
-      addCandidate({ ...values, image: imageUrl, cv: cvUrl });
-      console.log(localStorage.getItem("token"));
+      try {
+        addCandidate({ ...values, image: imageUrl, cv: cvUrl });
+        console.log(localStorage.getItem("token"));
+        toast.success("Changes Saved");
+      } catch (error) {
+        toast.error("Something went wrong");
+      }
     },
     validationSchema: candidateSchema,
   });

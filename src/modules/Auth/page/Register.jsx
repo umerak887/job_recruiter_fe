@@ -2,6 +2,8 @@ import React from "react";
 import { useFormik, FormikProvider, Form, Field } from "formik";
 import { object, string } from "yup";
 import axiosInstance from "../../../utils/axios";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const registrationSchema = object({
   name: string().required(),
@@ -11,12 +13,15 @@ const registrationSchema = object({
 });
 
 const RegistrationForm = () => {
+  const navigate = useNavigate();
   const handleSubmit = async (values) => {
     try {
       const response = await axiosInstance.post("/auth/user/register", values);
+      navigate("/auth/sign_in");
+      toast.success("Registration completed successfuly");
       console.log(response);
     } catch (error) {
-      console.error(error);
+      toast.error(error);
     }
   };
   const formik = useFormik({
@@ -114,17 +119,23 @@ const RegistrationForm = () => {
             )}
           </div>
 
-          <div>
+          <p className="text-sm text-center my-3">
+            Already have an account?{" "}
+            <span
+              className="underline cursor-pointer"
+              onClick={() => navigate("/auth/sign_in")}
+            >
+              Login
+            </span>
+          </p>
+          <div className="flex justify-center items-center">
             <button
               type="submit"
-              className="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300"
+              className="bg-green-500 text-white py-2 w-full px-4 rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300"
             >
               Register
             </button>
           </div>
-          <p className="text-sm">
-            Already have an account? <span>Login</span>
-          </p>
         </Form>
       </FormikProvider>
     </div>

@@ -53,6 +53,7 @@ const SideBar = ({ children }) => {
               className="hover:bg-red-600 p-2 hover:text-white rounded-md cursor-pointer"
               onClick={() => {
                 dispatch(logout());
+                localStorage.removeItem("token");
                 navigate("/auth/sign_in");
               }}
             />

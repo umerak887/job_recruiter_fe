@@ -1,13 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Notifications from "../components/Notifications";
 import StatsCard from "../components/StatsCard";
 import UserProfile from "../components/UserProfile";
+import axiosInstance from "../../../../utils/axios";
 
 const CandidateHome = () => {
+  const [resumeCount, setResumeCount] = useState(null);
+  const getResumeCounter = async () => {
+    const token = localStorage.getItem("token");
+    console.log(token);
+    try {
+      const response = await axiosInstance.get("/resumeCounter", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setResumeCount(response.data.resumeCount);
+      console.log(response.data.resumeCount);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getResumeCounter();
+  }, []);
+
   const stats = [
     {
       name: "Total Resumes",
-      count: 1,
+      count: resumeCount,
     },
     {
       name: "Bookmarks",

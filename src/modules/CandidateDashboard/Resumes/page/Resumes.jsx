@@ -10,6 +10,8 @@ import SkillsListing from "../components/Skills/SkillsListing";
 import SkillsForm from "../components/Skills/SkillsForm";
 import axiosInstance from "../../../../utils/axios";
 
+import { toast } from "react-toastify";
+
 const Resumes = () => {
   const [educationArray, setEducationArray] = useState([]);
   const [experienceArray, setExperienceArray] = useState([]);
@@ -72,8 +74,11 @@ const Resumes = () => {
       const response = await axiosInstance.post("/resume", payload, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      toast.success("Candidate created successfuly");
       console.log(response);
-    } catch (error) {}
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
   };
 
   return (

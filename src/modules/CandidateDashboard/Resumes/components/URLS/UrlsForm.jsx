@@ -20,8 +20,9 @@ const UrlsForm = ({ addURL }) => {
       urllink: "",
     },
     validationSchema: urlSchema,
-    onSubmit: (values) => {
+    onSubmit: (values, { resetForm }) => {
       addURL(values);
+      resetForm();
       console.log(values);
     },
   });

@@ -5,6 +5,7 @@ import axiosInstance from "../../../utils/axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login, storeUserData } from "../store.js";
+import { toast } from "react-toastify";
 
 const loginSchema = object({
   email: string().email().required(),
@@ -21,8 +22,9 @@ const Login = () => {
       const token = response.data.token;
       const data = response.data.data;
       dispatch(storeUserData({ data }));
-      await localStorage.setItem("token", token);
+      localStorage.setItem("token", token);
       dispatch(login());
+      toast.success("Login Successfuly");
       navigate("/main");
     } catch (error) {
       console.log(error);
@@ -104,13 +106,21 @@ const Login = () => {
               <div className="text-red-500 text-sm mt-1">{errors.role}</div>
             )}
           </div>
-
-          <div>
+          <p className="text-sm text-white text-center my-3">
+            Dont have an account ?{" "}
+            <span
+              className="underline cursor-pointer"
+              onClick={() => navigate("/auth/sign_up")}
+            >
+              Sign Up
+            </span>
+          </p>
+          <div className="flex justify-center items-center">
             <button
               type="submit"
-              className="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300"
+              className="bg-green-500 text-white w-full py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-300"
             >
-              Register
+              Login
             </button>
           </div>
         </Form>
