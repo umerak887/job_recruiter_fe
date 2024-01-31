@@ -19,6 +19,8 @@ import Bookmark from "./modules/CandidateDashboard/BookMarks/page/Bookmark";
 import EmployerDashboardLayout from "./layouts/EmployerDashboardLayout";
 import CandidateDetail from "./modules/CandidateDetails/page/CandidateDetail";
 import CandidateResumes from "./modules/CandidateDashboard/ResumesList/page/CandidateResumes";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   useEffect(() => {
@@ -41,6 +43,7 @@ const App = () => {
 
   return (
     <>
+      <ToastContainer />
       <Routes>
         <Route element={<Register />} path="auth/sign_up" />
         <Route element={<Login />} path="auth/sign_in" />
@@ -54,7 +57,7 @@ const App = () => {
           <Route element={<CandidatePage />} path="candidate" />
           <Route
             element={<CandidateDetail />}
-            path="candidate/candidate_details"
+            path="candidate/candidate_details/:id"
           />
           <Route element={<ContactUs />} path="contact_us" />
         </Route>

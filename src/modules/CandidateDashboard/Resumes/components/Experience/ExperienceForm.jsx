@@ -21,8 +21,11 @@ const ExperienceForm = ({ addExperience }) => {
       endDate: "",
     },
     validationSchema: experienceSchema,
-    onSubmit: (values) => {
-      addExperience(values);
+    onSubmit: (values, { resetForm }) => {
+      try {
+        addExperience(values);
+        resetForm();
+      } catch (error) {}
     },
   });
 
