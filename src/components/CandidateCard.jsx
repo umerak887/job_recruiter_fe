@@ -18,14 +18,23 @@ const CandidateCard = ({ image, name, region, id, skills }) => {
           <p>{region}</p>
         </div>
         <div className="flex gap-2 justify-center items-center w-64 flex-wrap px-2 ">
-          {skills.map((ele, index) => (
-            <div
-              key={index}
-              className="px-2 text-sm min-w-1/4 border text-gray-500 overflow-hidden border-gray-200 text-center"
-            >
-              {ele.name}
-            </div>
-          ))}
+          <div>
+            {skills.map((ele, index) => (
+              <div
+                key={index}
+                className="px-2 text-sm min-w-1/4 border text-gray-500 overflow-hidden border-gray-200 text-center"
+              >
+                {ele.name}
+              </div>
+            ))}
+          </div>
+          <div
+            className={`px-2 text-sm min-w-1/4 border text-gray-500 overflow-hidden border-gray-200 text-center ${
+              skills.lenght == 0 ? "block" : "hidden"
+            }`}
+          >
+            hello
+          </div>
         </div>
       </div>
       <button

@@ -31,11 +31,11 @@ const CandidateHome = () => {
     },
     {
       name: "Bookmarks",
-      count: 1,
+      count: 0,
     },
     {
       name: "Applications",
-      count: 1,
+      count: 0,
     },
   ];
 
