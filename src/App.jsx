@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Register from "./modules/Auth/page/Register";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import HomePage from "./modules/Home/page/Home";
 import ContactUs from "./modules/ContactUs/Page/ContactUs";
@@ -23,6 +23,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
+  // const location = useLocation();
   useEffect(() => {
     // Talk.to widget code
     const talkToScript = document.createElement("script");
@@ -40,6 +41,26 @@ const App = () => {
     `;
     document.body.appendChild(talkToScript);
   }, []);
+
+  const isAuthenticated = true;
+  const navigate = useNavigate();
+
+  // const ProtectedCandidateRoute = ({ element, ...rest }) => {
+  //   return isAuthenticated && isCandidate ? (
+  //     <Route {...rest} element={element} />
+  //   ) : (
+  //     navigate("/auth/sign_in")
+  //   );
+  // };
+
+  // // Protected route component for employers
+  // const ProtectedEmployerRoute = ({ element, ...rest }) => {
+  //   return isAuthenticated && !isCandidate ? (
+  //     <Route {...rest} element={element} />
+  //   ) : (
+  //     navigate("/auth/sign_in")
+  //   );
+  // };
 
   return (
     <>

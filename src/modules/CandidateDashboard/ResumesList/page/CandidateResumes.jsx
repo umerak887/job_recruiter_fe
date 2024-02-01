@@ -3,6 +3,7 @@ import { CiEdit } from "react-icons/ci";
 import { FaCheck } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import axiosInstance from "../../../../utils/axios";
+import { toast } from "react-toastify";
 
 const CandidateResumes = () => {
   const [resumes, setResumes] = useState([]);
@@ -14,9 +15,15 @@ const CandidateResumes = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       setResumes(response.data);
-      console.log(response.data);
+      console.log(response.message);
+      if (response.status == 401) {
+        toast.error("Authorization failed");
+        navigate("/auth/sign_in");
+      }
     } catch (error) {
-      toast.error(error);
+      console.log(error.message);
+      toast.error("Something went wrong while fetching stats");
+      navigate("/auth/sign_in");
     }
   };
 

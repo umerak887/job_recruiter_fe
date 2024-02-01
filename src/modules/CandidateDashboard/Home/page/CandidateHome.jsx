@@ -3,18 +3,23 @@ import Notifications from "../components/Notifications";
 import StatsCard from "../components/StatsCard";
 import UserProfile from "../components/UserProfile";
 import axiosInstance from "../../../../utils/axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
 const CandidateHome = () => {
-  const [resumeCount, setResumeCount] = useState(null);
+  const [resumeCount, setResumeCount] = useState(0);
+  const navigate = useNavigate();
   const getResumeCounter = async () => {
     const token = localStorage.getItem("token");
-    console.log(token);
     try {
+      if (!token) {
+        navigate("/auth/sign_in");
+        toast.error("Unauthorized Access");
+      }
       const response = await axiosInstance.get("/resumeCounter", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setResumeCount(response.data.resumeCount);
-      console.log(response.data.resumeCount);
     } catch (error) {
       console.log(error);
     }
