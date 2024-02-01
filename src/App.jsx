@@ -1,29 +1,47 @@
-import React, { useEffect } from "react";
-import Register from "./modules/Auth/page/Register";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import MainLayout from "./layouts/MainLayout";
-import HomePage from "./modules/Home/page/Home";
-import ContactUs from "./modules/ContactUs/Page/ContactUs";
-import FindJob from "./modules/FindJobs/page/FindJob";
-import NotFoundPage from "./page/NotFound";
-import Login from "./modules/Auth/page/Login";
-import CompanyPage from "./modules/Company/page/CompanyPage";
-import CandidatePage from "./modules/Candidates/page/Candidate";
-import CandidateDashboardLayout from "./layouts/CandidateDashboardLayout";
-import CandidateHome from "./modules/CandidateDashboard/Home/page/CandidateHome";
-import IntroductionPage from "./modules/Introduction/page";
-import Resumes from "./modules/CandidateDashboard/Resumes/page/Resumes";
-import Applications from "./modules/CandidateDashboard/Applications/page/Applications";
-import Messages from "./modules/CandidateDashboard/Messages/page/Messages";
-import Bookmark from "./modules/CandidateDashboard/BookMarks/page/Bookmark";
-import EmployerDashboardLayout from "./layouts/EmployerDashboardLayout";
-import CandidateDetail from "./modules/CandidateDetails/page/CandidateDetail";
-import CandidateResumes from "./modules/CandidateDashboard/ResumesList/page/CandidateResumes";
+import React, { useEffect, lazy, Suspense } from "react";
+import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+const Register = lazy(() => import("./modules/Auth/page/Register"));
+const Login = lazy(() => import("./modules/Auth/page/Login"));
+const MainLayout = lazy(() => import("./layouts/MainLayout"));
+const HomePage = lazy(() => import("./modules/Home/page/Home"));
+const ContactUs = lazy(() => import("./modules/ContactUs/Page/ContactUs"));
+const FindJob = lazy(() => import("./modules/FindJobs/page/FindJob"));
+const NotFoundPage = lazy(() => import("./page/NotFound"));
+const CompanyPage = lazy(() => import("./modules/Company/page/CompanyPage"));
+const CandidatePage = lazy(() => import("./modules/Candidates/page/Candidate"));
+const CandidateDashboardLayout = lazy(() =>
+  import("./layouts/CandidateDashboardLayout")
+);
+const CandidateHome = lazy(() =>
+  import("./modules/CandidateDashboard/Home/page/CandidateHome")
+);
+const IntroductionPage = lazy(() => import("./modules/Introduction/page"));
+const Resumes = lazy(() =>
+  import("./modules/CandidateDashboard/Resumes/page/Resumes")
+);
+const Applications = lazy(() =>
+  import("./modules/CandidateDashboard/Applications/page/Applications")
+);
+const Messages = lazy(() =>
+  import("./modules/CandidateDashboard/Messages/page/Messages")
+);
+const Bookmark = lazy(() =>
+  import("./modules/CandidateDashboard/BookMarks/page/Bookmark")
+);
+const EmployerDashboardLayout = lazy(() =>
+  import("./layouts/EmployerDashboardLayout")
+);
+const CandidateDetail = lazy(() =>
+  import("./modules/CandidateDetails/page/CandidateDetail")
+);
+const CandidateResumes = lazy(() =>
+  import("./modules/CandidateDashboard/ResumesList/page/CandidateResumes")
+);
+
 const App = () => {
-  // const location = useLocation();
   useEffect(() => {
     // Talk.to widget code
     const talkToScript = document.createElement("script");
@@ -42,64 +60,49 @@ const App = () => {
     document.body.appendChild(talkToScript);
   }, []);
 
-  const isAuthenticated = true;
-  const navigate = useNavigate();
-
-  // const ProtectedCandidateRoute = ({ element, ...rest }) => {
-  //   return isAuthenticated && isCandidate ? (
-  //     <Route {...rest} element={element} />
-  //   ) : (
-  //     navigate("/auth/sign_in")
-  //   );
-  // };
-
-  // // Protected route component for employers
-  // const ProtectedEmployerRoute = ({ element, ...rest }) => {
-  //   return isAuthenticated && !isCandidate ? (
-  //     <Route {...rest} element={element} />
-  //   ) : (
-  //     navigate("/auth/sign_in")
-  //   );
-  // };
-
   return (
     <>
       <ToastContainer />
-      <Routes>
-        <Route element={<Register />} path="auth/sign_up" />
-        <Route element={<Login />} path="auth/sign_in" />
-        {/* Main Content  */}
-        <Route element={<IntroductionPage />} path="" />
-        <Route element={<NotFoundPage />} path="*" />
-        <Route element={<MainLayout />} path="/main">
-          <Route element={<HomePage />} path="" />
-          <Route element={<FindJob />} path="find_job" />
-          <Route element={<CompanyPage />} path="company" />
-          <Route element={<CandidatePage />} path="candidate" />
+      <Suspense
+        fallback={
+          <div className="flex justify-center items-center  h-screen text-black text-9xl">
+            Loading...
+          </div>
+        }
+      >
+        <Routes>
+          <Route element={<Register />} path="auth/sign_up" />
+          <Route element={<Login />} path="auth/sign_in" />
+          <Route element={<IntroductionPage />} path="" />
+          <Route element={<NotFoundPage />} path="*" />
+          <Route element={<MainLayout />} path="/main">
+            <Route element={<HomePage />} path="" />
+            <Route element={<FindJob />} path="find_job" />
+            <Route element={<CompanyPage />} path="company" />
+            <Route element={<CandidatePage />} path="candidate" />
+            <Route
+              element={<CandidateDetail />}
+              path="candidate/candidate_details/:id"
+            />
+            <Route element={<ContactUs />} path="contact_us" />
+          </Route>
           <Route
-            element={<CandidateDetail />}
-            path="candidate/candidate_details/:id"
+            element={<CandidateDashboardLayout />}
+            path="candidate_dashboard"
+          >
+            <Route element={<CandidateHome />} path="" />
+            <Route element={<Messages />} path="messages" />
+            <Route element={<Bookmark />} path="bookmarks" />
+            <Route element={<CandidateResumes />} path="resumes" />
+            <Route element={<Resumes />} path="add_resume" />
+            <Route element={<Applications />} path="applications" />
+          </Route>
+          <Route
+            element={<EmployerDashboardLayout />}
+            path="employer_dashboard"
           />
-          <Route element={<ContactUs />} path="contact_us" />
-        </Route>
-        {/* Candidate Dashboard */}
-        <Route
-          element={<CandidateDashboardLayout />}
-          path="candidate_dashboard"
-        >
-          <Route element={<CandidateHome />} path="" />
-          <Route element={<Messages />} path="messages" />
-          <Route element={<Bookmark />} path="bookmarks" />
-          <Route element={<CandidateResumes />} path="resumes" />
-          <Route element={<Resumes />} path="add_resume" />
-          <Route element={<Applications />} path="applications" />
-        </Route>
-        {/* Employer Dashboard */}
-        <Route
-          element={<EmployerDashboardLayout />}
-          path="employer_dashboard"
-        ></Route>
-      </Routes>
+        </Routes>
+      </Suspense>
     </>
   );
 };

@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 
 const CandidateResumes = () => {
   const [resumes, setResumes] = useState([]);
+  const [formatDateTime, setFormatdateTime] = useState("");
 
   const getAllResumes = async () => {
     try {
@@ -16,18 +17,12 @@ const CandidateResumes = () => {
       });
       setResumes(response.data);
       console.log(response.message);
-      if (response.status == 401) {
-        toast.error("Authorization failed");
-        navigate("/auth/sign_in");
-      }
     } catch (error) {
       console.log(error.message);
-      toast.error("Something went wrong while fetching stats");
-      navigate("/auth/sign_in");
     }
   };
 
-  useEffect(() => {
+  const formatDate = useEffect(() => {
     getAllResumes();
     console.log(resumes);
   }, []);
@@ -66,8 +61,8 @@ const CandidateResumes = () => {
                 <div className="w-1/2 m-auto">IT</div>
               </td>
               <td className="text-center">
-                <div className="w-1/2 p-1 border text-gray-800 bg-green-500 rounded-md m-auto">
-                  {ele.createdAt}
+                <div className="w-1/2 p-1 border text-gray-800 bg-green-200 font-semibold text-sm rounded-md m-auto">
+                  {ele.createdAt.split("T")[0]}
                 </div>
               </td>
 
