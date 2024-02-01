@@ -17,6 +17,7 @@ const candidateSchema = object({
 
 const CandidateForm = ({ addCandidate }) => {
   const [isOpen, setIsOpen] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [cvUrl, setCvUrl] = useState("");
   const [imageUrl, setImageURL] = useState("");
 
@@ -44,19 +45,27 @@ const CandidateForm = ({ addCandidate }) => {
   });
 
   const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "job_recruiter");
-    const response = await fetch(
-      "https://api.cloudinary.com/v1_1/dseyjydkj/image/upload",
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
-    const data = await response.json();
-    setImageURL(data.secure_url);
+    setIsLoading(true);
+    try {
+      const file = e.target.files[0];
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "job_recruiter");
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/dseyjydkj/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      const data = await response.json();
+      setImageURL(data.secure_url);
+      setIsLoading(false);
+      toast.success("Image file selected");
+    } catch (error) {
+      toast.error(error.message);
+      setIsLoading(false);
+    }
   };
 
   const handleCvUpload = async (e) => {
@@ -77,6 +86,7 @@ const CandidateForm = ({ addCandidate }) => {
   };
 
   const { handleSubmit } = formik;
+  const { errors, touched, values } = formik;
 
   return (
     <div className="bg-white shadow-md pb-4 rounded-md mb-4">
@@ -98,6 +108,9 @@ const CandidateForm = ({ addCandidate }) => {
                   name="name"
                   className="mt-1 p-2 w-full border rounded-md"
                 />
+                {touched.name && errors.name && (
+                  <div className="text-red-500 text-sm mt-1">{errors.name}</div>
+                )}
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-600">
@@ -107,6 +120,11 @@ const CandidateForm = ({ addCandidate }) => {
                   name="job_title"
                   className="mt-1 p-2 w-full border rounded-md"
                 />
+                {touched.job_title && errors.job_title && (
+                  <div className="text-red-500 text-sm mt-1">
+                    {errors.job_title}
+                  </div>
+                )}
               </div>
             </div>
             <div className="mb-4">
@@ -118,6 +136,9 @@ const CandidateForm = ({ addCandidate }) => {
                 type="email"
                 className="mt-1 p-2 w-full border rounded-md"
               />
+              {touched.email && errors.email && (
+                <div className="text-red-500 text-sm mt-1">{errors.email}</div>
+              )}
             </div>
             <div className="grid grid-cols-2 gap-4 mb-4">
               <div>
@@ -128,6 +149,11 @@ const CandidateForm = ({ addCandidate }) => {
                   name="location"
                   className="mt-1 p-2 w-full border rounded-md"
                 />
+                {touched.location && errors.location && (
+                  <div className="text-red-500 text-sm mt-1">
+                    {errors.location}
+                  </div>
+                )}
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-600">
@@ -137,6 +163,11 @@ const CandidateForm = ({ addCandidate }) => {
                   name="region"
                   className="mt-1 p-2 w-full border rounded-md"
                 />
+                {touched.region && errors.region && (
+                  <div className="text-red-500 text-sm mt-1">
+                    {errors.region}
+                  </div>
+                )}
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4 mb-4">
@@ -148,6 +179,11 @@ const CandidateForm = ({ addCandidate }) => {
                   name="category"
                   className="mt-1 p-2 w-full border rounded-md"
                 />
+                {touched.category && errors.category && (
+                  <div className="text-red-500 text-sm mt-1">
+                    {errors.category}
+                  </div>
+                )}
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-600">
@@ -157,6 +193,11 @@ const CandidateForm = ({ addCandidate }) => {
                   name="hourly_rate"
                   className="mt-1 p-2 w-full border rounded-md"
                 />
+                {touched.hourly_rate && errors.hourly_rate && (
+                  <div className="text-red-500 text-sm mt-1">
+                    {errors.hourly_rate}
+                  </div>
+                )}
               </div>
             </div>
             <div className="mb-4">
@@ -172,6 +213,11 @@ const CandidateForm = ({ addCandidate }) => {
                 name="description"
                 className="mt-1 p-2 w-full border rounded-md"
               />
+              {touched.description && errors.description && (
+                <div className="text-red-500 text-sm mt-1">
+                  {errors.description}
+                </div>
+              )}
             </div>
             <div className="grid grid-cols-2 gap-4 mb-4">
               <div>
@@ -206,7 +252,10 @@ const CandidateForm = ({ addCandidate }) => {
             <div className="flex justify-end items-center">
               <button
                 type="submit"
-                className="bg-gray-900 p-2 rounded-md text-white font-semibold"
+                className={`${
+                  isLoading ? " bg-gray-700" : "bg-gray-900 "
+                }p-2 rounded-md text-white font-semibold`}
+                disabled={isLoading}
               >
                 Submit
               </button>
